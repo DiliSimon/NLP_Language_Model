@@ -96,6 +96,12 @@ def main():
 
     elif args.mode == TEST:
         log.info("Testing...")
+
+        train_file_1 = str(model_path_1).split('_')[2]
+        type_1 = train_file_1.split('.')[0]
+        train_file_2 = str(model_path_2).split('_')[2]
+        type_2 = train_file_2.split('.')[0]
+
         lm_1 = LanguageModel.load(model_path_1)
         lm_2 = LanguageModel.load(model_path_2)
         # We use natural log for our internal computations and that's
@@ -121,13 +127,13 @@ def main():
             # print("gen log prob: " + str(math.exp(log_prob_2)))
 
             if post_1 > post_2:
-                print("gen " + str(test_file) + " " + str(post_1))
+                print(type_1 + " " + str(test_file))
                 num_gen += 1
             else:
-                print("spam " + str(test_file) + " " + str(post_2))
+                print(type_2 + " " + str(test_file))
                 num_spam += 1
-        print(str(num_gen) + " files were more probably gen (" + str(num_gen/num_files) + ")")
-        print(str(num_spam) + " files were more probably spam (" + str(num_spam / num_files) + ")")
+        print(str(num_gen) + " files were more probably " + type_1 + " (" + str(num_gen/num_files) + ")")
+        print(str(num_spam) + " files were more probably " + type_2 + " (" + str(num_spam / num_files) + ")")
     else:
         raise ValueError("Inappropriate mode of operation.")
 

@@ -25,7 +25,10 @@ def most_similar_words(vec, target_vec, target = None):
         sim[util.cosine_sim(vec[w], target_vec)] = w
     i = 0
     for v in sorted(sim.keys(), reverse=True):
-        print(sim[v])
+        if i == 9:
+            print(sim[v])
+        else:
+            print(sim[v], end=' ')
         i += 1
         if i > 9:
             break
